@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.moscow.neighbours.backend.MoscowNeighboursApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.754 s - in com.moscow.neighbours.backend.MoscowNeighboursApplicationTests
