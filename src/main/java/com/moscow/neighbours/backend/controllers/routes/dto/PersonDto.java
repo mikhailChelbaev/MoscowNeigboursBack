@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public class PersonDto implements IEntityPresentable<DBPerson>, Serializable {
     @Override
     public DBPerson toDBModel() {
         return new DBPerson(
-                id,
+                Objects.nonNull(id) ? id : UUID.randomUUID(),
                 name,
                 description,
                 shortDescription,

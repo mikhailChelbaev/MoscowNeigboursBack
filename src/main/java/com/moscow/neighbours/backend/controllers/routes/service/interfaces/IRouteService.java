@@ -8,6 +8,4 @@ public interface IRouteService {
 
     List<RouteDto> getRoutes();
 
-    void saveRoutes(List<RouteDto> routes);
-
 }

@@ -28,15 +28,4 @@ public class RoutesController {
         return routeService.getRoutes();
     }
 
-    @PostMapping()
-    public ResponseEntity<?> uploadRoutes(@RequestBody List<RouteDto> routesUploadDtoList) {
-        routeService.saveRoutes(routesUploadDtoList);
-        return ResponseEntity.ok(MessageResponse.of("Routes uploaded successfully"));
-    }
-
-//    @PostMapping()
-//    public ResponseEntity<?> uploadRoutes(@RequestBody String routesUploadDtoList) {
-//        System.out.println(routesUploadDtoList);
-//        return ResponseEntity.ok(MessageResponse.of("Routes uploaded successfully"));
-//    }
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -32,7 +33,7 @@ public class PersonInfoDto implements IEntityPresentable<DBPersonInfo>, Serializ
     @Override
     public DBPersonInfo toDBModel() {
         return new DBPersonInfo(
-                id,
+                Objects.nonNull(id) ? id : UUID.randomUUID(),
                 coordinates.toDBModel(),
                 person.toDBModel(),
                 place.toDBModel()

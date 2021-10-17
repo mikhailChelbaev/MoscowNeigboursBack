@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,7 @@ public class RouteDto implements IEntityPresentable<DBRoute>, Serializable {
     @Override
     public DBRoute toDBModel() {
         return new DBRoute(
-                id,
+                Objects.nonNull(id) ? id : UUID.randomUUID(),
                 name,
                 description,
                 duration,

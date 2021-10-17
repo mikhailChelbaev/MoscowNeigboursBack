@@ -26,12 +26,4 @@ public class RoutesServiceImpl implements IRouteService, Serializable {
                 .collect(Collectors.toList());
     }
 
-    public void saveRoutes(List<RouteDto> routes) {
-        routeRepository.saveAll(
-                routes.stream().
-                map(RouteDto::toDBModel)
-                .collect(Collectors.toList())
-        );
-    }
-
 }

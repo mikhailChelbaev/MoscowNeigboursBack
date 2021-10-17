@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### PID ###
+current_pid.txt

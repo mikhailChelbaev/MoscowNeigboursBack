@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -29,7 +30,12 @@ public class PlaceDto implements IEntityPresentable<DBPlace>, Serializable {
 
     @Override
     public DBPlace toDBModel() {
-        return new DBPlace(id, name, description, address);
+        return new DBPlace(
+                Objects.nonNull(id) ? id : UUID.randomUUID(),
+                name,
+                description,
+                address
+        );
     }
 
 }
