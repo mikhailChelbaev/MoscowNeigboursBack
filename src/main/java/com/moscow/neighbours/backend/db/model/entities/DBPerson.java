@@ -1,10 +1,7 @@
 package com.moscow.neighbours.backend.db.model.entities;
 
 import com.moscow.neighbours.backend.db.model.DBPersonInfo;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -28,6 +25,7 @@ public class DBPerson {
     @Column(columnDefinition="text")
     private String shortDescription;
 
+    @Setter
     private String avatarUrl;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

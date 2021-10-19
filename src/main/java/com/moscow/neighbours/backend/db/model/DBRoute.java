@@ -30,6 +30,7 @@ public class DBRoute {
 
     private String distance;
 
+    @Setter
     private String coverUrl;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
