@@ -1,5 +1,5 @@
 echo 'Termitate server'
-Kill -9 `cat current_pid.txt`
+kill -9 `cat current_pid.txt`
 rm current_pid.txt
 
 echo 'Start server'
