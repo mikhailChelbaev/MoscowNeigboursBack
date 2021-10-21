@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,8 +30,16 @@ public class ImageUploadServiceImpl implements IImageUploadService {
      */
     public Path saveUploadedFile(MultipartFile file, String id) throws IOException {
         byte[] bytes = file.getBytes();
+
+        // make dir if needed
+        var pathToDir = new File(UPLOAD_FOLDER);
+        if (!pathToDir.exists()) {
+            pathToDir.mkdirs();
+        }
+
         Path path = Paths.get(UPLOAD_FOLDER + id + "." + FilenameUtils.getExtension(file.getOriginalFilename()));
         Files.write(path, bytes);
+        
         return path;
     }
 
