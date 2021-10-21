@@ -3,5 +3,5 @@ kill -9 `cat current_pid.txt`
 rm current_pid.txt
 
 echo 'Start server'
-nohup java -jar data/product.jar > log.txt 2>&1 &
+nohup ./mvnw spring-boot:run
 echo $! > current_pid.txt
