@@ -24,7 +24,8 @@ public class RoutesServiceImpl implements IRouteService, Serializable {
     }
 
     public List<RouteDto> getRoutes() {
-        return routeRepository.findAll().stream()
+        var dbRoutes = routeRepository.findAll();
+        return dbRoutes.stream()
                 .map(RouteDto::new)
                 .collect(Collectors.toList());
     }

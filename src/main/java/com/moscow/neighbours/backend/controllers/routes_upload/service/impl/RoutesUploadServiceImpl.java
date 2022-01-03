@@ -44,11 +44,10 @@ public class RoutesUploadServiceImpl implements IRoutesUploadService, Serializab
 
     public void saveRoutes(List<RouteDto> routes) {
         try {
-            routeRepository.saveAll(
-                    routes.stream()
-                            .map(RouteDto::toDBModel)
-                            .collect(Collectors.toList())
-            );
+            var dbRoutes = routes.stream()
+                    .map(RouteDto::toDBModel)
+                    .collect(Collectors.toList());
+            routeRepository.saveAllAndFlush(dbRoutes);
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }

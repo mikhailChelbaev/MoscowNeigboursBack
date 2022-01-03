@@ -39,7 +39,7 @@ public class ImageUploadServiceImpl implements IImageUploadService {
 
         Path path = Paths.get(UPLOAD_FOLDER + id + "." + FilenameUtils.getExtension(file.getOriginalFilename()));
         Files.write(path, bytes);
-        
+
         return path;
     }
 

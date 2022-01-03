@@ -16,8 +16,7 @@ public class DBRoute {
 
     @Id
     @Column(name = "id", columnDefinition = "uuid")
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "route_generator")
-//    @SequenceGenerator(name = "route_generator", sequenceName = "route_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "name", nullable = false, unique = true)
