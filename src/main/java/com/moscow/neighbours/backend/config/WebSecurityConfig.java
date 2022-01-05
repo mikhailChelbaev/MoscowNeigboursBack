@@ -1,10 +1,11 @@
 package com.moscow.neighbours.backend.config;
 
 import com.auth0.jwt.algorithms.Algorithm;
-import com.moscow.neighbours.backend.filters.CustomAuthenticationFilter;
-import com.moscow.neighbours.backend.filters.CustomAuthorizationFilter;
+import com.moscow.neighbours.backend.jwt.JwtAuthEntryPoint;
+import com.moscow.neighbours.backend.jwt.auth.JwtAuthTokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
@@ -27,20 +28,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    private final BCryptPasswordEncoder passwordEncoder;
-
     private Algorithm algorithm;
+
+    @Autowired
+    private JwtAuthEntryPoint authEntryPoint;
+
+    @Value("${app.config.webconfig.password-encoder-qualifier}")
+    private String passwordEncoderQualifier;
+
+    private PasswordEncoder passwordEncoder;
 
     // MARK: - methods
 
     @Autowired
-    void getAlgorithm(ApplicationContext context) {
+    public void setAlgorithm(ApplicationContext context) {
         algorithm = context.getBean("algorithm", Algorithm.class);
     }
 
+    @Autowired
+    public void setPasswordEncoder(ApplicationContext context) {
+        passwordEncoder = context.getBean(passwordEncoderQualifier, PasswordEncoder.class);
+    }
+
     @Bean
-    CustomAuthorizationFilter authorizationFilter() {
-        return new CustomAuthorizationFilter(algorithm);
+    JwtAuthTokenFilter authorizationFilter() {
+        return new JwtAuthTokenFilter(algorithm);
     }
 
     @Override
@@ -50,17 +62,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().anyRequest().permitAll();
-//        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().authenticationEntryPoint(authEntryPoint)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         http.addFilterBefore(authorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-//    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
 }
