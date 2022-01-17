@@ -20,8 +20,6 @@ import java.util.UUID;
 public class DBPersonInfo {
     @Id
     @Column(name = "id", columnDefinition = "uuid")
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_info_generator")
-//    @SequenceGenerator(name = "person_info_generator", sequenceName = "person_info_id_seq", allocationSize = 1)
     private UUID id;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

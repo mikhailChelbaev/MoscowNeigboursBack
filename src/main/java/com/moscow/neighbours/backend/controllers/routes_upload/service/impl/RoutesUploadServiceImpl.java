@@ -70,7 +70,7 @@ public class RoutesUploadServiceImpl implements IRoutesUploadService, Serializab
             var fileDownloadUri = imageUploadService.getUploadUri(path);
 
             unwrappedPerson.setAvatarUrl(fileDownloadUri);
-            personRepository.save(unwrappedPerson);
+            personRepository.saveAndFlush(unwrappedPerson);
 
             return fileDownloadUri;
         } catch (Exception ex) {

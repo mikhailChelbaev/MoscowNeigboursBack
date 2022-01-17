@@ -1,6 +1,8 @@
 package com.moscow.neighbours.backend.exceptions;
 
+import com.moscow.neighbours.backend.dto.ErrorWithDescriptionResponse;
 import com.moscow.neighbours.backend.dto.MessageResponse;
+import com.moscow.neighbours.backend.exceptions.descriptable_exception.DescriptableException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -11,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolationException;
+import java.util.Optional;
 
 /**
  * Controller for catching exceptions and preventing 500 status code
@@ -29,6 +32,20 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
             RuntimeException ex, WebRequest request
     ) {
         return new ResponseEntity<Object>(MessageResponse.of(ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Handles all exceptions that have {@link BaseException} superclass
+     * @param ex exception
+     * @param request request
+     * @return {@link ResponseEntity} of {@link MessageResponse} with error
+     */
+    @ExceptionHandler(value = {DescriptableException.class})
+    protected ResponseEntity<Object> handleDescriptableException(
+            RuntimeException ex, WebRequest request
+    ) {
+        return new ResponseEntity<Object>(ErrorWithDescriptionResponse.of(ex.getMessage(), ((DescriptableException) ex).description), 
+                HttpStatus.BAD_REQUEST);
     }
 
     /**
