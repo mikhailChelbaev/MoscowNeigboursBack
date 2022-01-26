@@ -34,3 +34,5 @@ build/
 
 ### PID ###
 current_pid.txt
+
+**/src/main/**/static/images/
