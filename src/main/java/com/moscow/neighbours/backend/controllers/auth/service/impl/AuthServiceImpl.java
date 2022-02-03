@@ -118,7 +118,7 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 
     public int sendVerificationCode(String name, String email) {
         if (emailService.isActive()) {
-            int code = new Random(42).nextInt(1000000);
+            int code = new Random().nextInt(1000000);
             try {
                 emailService.sendVerificationEmail(email,
                         name,
@@ -224,7 +224,7 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 
     @Override
     public DBUser confirmAccount(AccountConfirmationDto confirmationDto) {
-        return userRepository.findByUserId(confirmationDto.getEmail()).map(user -> {
+        return userRepository.findByUserId(confirmationDto.getEmail().toLowerCase()).map(user -> {
             if (!user.isVerified()) {
                 if (Objects.equals(user.getVerificationCode(), confirmationDto.getCode()) ||
                     Objects.equals("220500", confirmationDto.getCode())) {

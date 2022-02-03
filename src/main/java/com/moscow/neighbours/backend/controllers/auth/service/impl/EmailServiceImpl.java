@@ -59,7 +59,7 @@ public class EmailServiceImpl implements IEmailService {
                 }
             });
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("noreply@msk-sosedi.ru"));//new InternetAddress(techEmail));
+            message.setFrom(new InternetAddress(techEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             message.setSubject("Account Verification");
 
@@ -78,11 +78,16 @@ public class EmailServiceImpl implements IEmailService {
     }
 
     // TODO: - russian version
-    private static final String template = "<div><p>Hello, %s!</p>" +
-            "<p>Confirm your account registration with this verification code: " +
+//    private static final String template = "<div><p>Hello, %s!</p>" +
+//            "<p>Confirm your account registration with this verification code: " +
+//            "<b>%s</b></p>" +
+//            "<p>Sincerely yours,<br>" +
+//            "Development Team</p></div>";
+    private static final String template = "<div><p>Привет, %s!</p>" +
+            "<p>Подтверди регистрацию в приложении этим кодом: " +
             "<b>%s</b></p>" +
-            "<p>Sincerely yours,<br>" +
-            "Development Team</p></div>";
+            "<p>С наилучшими пожеланиями,<br>" +
+            "Миша, Никита и Яна</p></div>";
 
 }
 
