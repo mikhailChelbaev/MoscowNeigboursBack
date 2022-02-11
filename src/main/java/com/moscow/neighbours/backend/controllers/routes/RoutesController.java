@@ -6,8 +6,10 @@ import com.moscow.neighbours.backend.dto.MessageResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -28,21 +30,21 @@ public class RoutesController {
     }
 
     @GetMapping()
-    public List<RouteDto> getRoutes(@RequestHeader Map<String, String> headers) {
-        var withPaidRoutes = false;
-
+    public List<RouteDto> getRoutes(@RequestHeader Map<String, String> headers,
+                                    Principal user) {
         var version = headers.get("version");
+        float versionValue = 1;
         try {
-            var versionValue = Float.parseFloat(version);
-            if (versionValue > 1.2) {
-                withPaidRoutes = true;
-            }
+            versionValue = Float.parseFloat(version);
         } catch (Exception ex) {
-            ex.printStackTrace();
             log.error("Failed to get app version");
         }
 
-        return routeService.getRoutes(withPaidRoutes);
+        if (user != null) {
+            return routeService.getRoutesForUser(user.getName());
+        } else {
+            return routeService.getAllRoutes(versionValue > 1.2);
+        }
     }
 
 }
