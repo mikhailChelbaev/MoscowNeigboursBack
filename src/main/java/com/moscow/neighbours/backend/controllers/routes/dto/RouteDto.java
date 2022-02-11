@@ -2,6 +2,7 @@ package com.moscow.neighbours.backend.controllers.routes.dto;
 
 import com.moscow.neighbours.backend.controllers.routes.interfaces.IEntityPresentable;
 import com.moscow.neighbours.backend.db.model.DBRoute;
+import com.moscow.neighbours.backend.db.model.entities.DBRoutePurchase;
 import lombok.*;
 
 import java.io.Serializable;
@@ -16,17 +17,12 @@ import java.util.stream.Collectors;
 public class RouteDto implements IEntityPresentable<DBRoute>, Serializable {
 
     UUID id;
-
     String name;
-
     String description;
-
     String duration;
-
     String distance;
-
     String coverUrl;
-
+    RoutePurchaseDto purchase;
     List<PersonInfoDto> personsInfo;
 
     public RouteDto(DBRoute dbModel) {
@@ -39,6 +35,7 @@ public class RouteDto implements IEntityPresentable<DBRoute>, Serializable {
         personsInfo = dbModel.getPersonInfo().stream()
                 .map(PersonInfoDto::new)
                 .collect(Collectors.toList());
+        purchase = new RoutePurchaseDto(dbModel.getPurchase());
     }
 
     @Override
@@ -50,6 +47,7 @@ public class RouteDto implements IEntityPresentable<DBRoute>, Serializable {
                 duration,
                 distance,
                 coverUrl,
+                purchase.toDBModel(),
                 personsInfo.stream()
                         .map(PersonInfoDto::toDBModel)
                         .collect(Collectors.toList())

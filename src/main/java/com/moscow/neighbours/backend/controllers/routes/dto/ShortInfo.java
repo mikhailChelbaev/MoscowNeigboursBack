@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 public class ShortInfo implements IEntityPresentable<DBShortInfo>, Serializable {
 
     String title;
-
     String subtitle;
 
     public ShortInfo(DBShortInfo dbModel) {

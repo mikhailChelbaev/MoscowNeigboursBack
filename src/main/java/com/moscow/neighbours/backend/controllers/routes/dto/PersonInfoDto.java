@@ -16,11 +16,8 @@ import java.util.UUID;
 public class PersonInfoDto implements IEntityPresentable<DBPersonInfo>, Serializable {
 
     UUID id;
-
     PersonDto person;
-
     PlaceDto place;
-
     LocationCoordinate coordinates;
 
     public PersonInfoDto(DBPersonInfo dbModel) {

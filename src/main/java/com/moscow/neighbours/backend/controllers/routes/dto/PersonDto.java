@@ -18,15 +18,10 @@ import java.util.stream.Collectors;
 public class PersonDto implements IEntityPresentable<DBPerson>, Serializable {
 
     UUID id;
-
     String name;
-
     String description;
-
     String shortDescription;
-
     String avatarUrl;
-
     List<ShortInfo> info;
 
     public PersonDto (DBPerson dbModel) {

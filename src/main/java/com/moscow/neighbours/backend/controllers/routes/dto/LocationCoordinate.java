@@ -15,7 +15,6 @@ import java.util.UUID;
 public class LocationCoordinate implements IEntityPresentable<DBLocationCoordinate>, Serializable {
 
     Double latitude;
-
     Double longitude;
 
     public LocationCoordinate (DBLocationCoordinate dbModel) {

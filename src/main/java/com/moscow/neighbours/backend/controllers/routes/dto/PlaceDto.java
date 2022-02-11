@@ -14,11 +14,8 @@ import java.util.UUID;
 public class PlaceDto implements IEntityPresentable<DBPlace>, Serializable {
 
     UUID id;
-
     String name;
-
     String description;
-
     String address;
 
     public PlaceDto (DBPlace dbModel) {
