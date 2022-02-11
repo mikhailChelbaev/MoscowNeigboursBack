@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(path="/api/v1/routes")
@@ -28,7 +29,20 @@ public class RoutesController {
 
     @GetMapping()
     public List<RouteDto> getRoutes(@RequestHeader Map<String, String> headers) {
-        return routeService.getRoutes();
+        var withPaidRoutes = false;
+
+        var version = headers.get("version");
+        try {
+            var versionValue = Float.parseFloat(version);
+            if (versionValue > 1.2) {
+                withPaidRoutes = true;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.error("Failed to get app version");
+        }
+
+        return routeService.getRoutes(withPaidRoutes);
     }
 
 }

@@ -23,9 +23,10 @@ public class RoutesServiceImpl implements IRouteService, Serializable {
         this.routeRepository = routeRepository;
     }
 
-    public List<RouteDto> getRoutes() {
+    public List<RouteDto> getRoutes(boolean withPaidRoutes) {
         var dbRoutes = routeRepository.findAll();
         return dbRoutes.stream()
+                .filter(x -> withPaidRoutes || !x.getPurchase().getStatus().name().equals("BUY"))
                 .map(RouteDto::new)
                 .collect(Collectors.toList());
     }

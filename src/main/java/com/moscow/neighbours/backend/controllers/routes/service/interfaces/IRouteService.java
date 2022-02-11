@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface IRouteService {
 
-    List<RouteDto> getRoutes();
+    List<RouteDto> getRoutes(boolean withPaidRoutes);
 
 }
