@@ -15,8 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class RoutePurchaseDto implements IEntityPresentable<DBRoutePurchase>, Serializable {
 
-    private String status;
-    private String productId;
+    public String status;
+    public String productId;
 
     public RoutePurchaseDto(DBRoutePurchase dbModel) {
         status = dbModel.getStatus().name().toLowerCase();

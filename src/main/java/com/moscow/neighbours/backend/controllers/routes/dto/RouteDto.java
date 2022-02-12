@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class RouteDto implements IEntityPresentable<DBRoute>, Serializable {
 
-    UUID id;
-    String name;
-    String description;
-    String duration;
-    String distance;
-    String coverUrl;
-    RoutePurchaseDto purchase;
-    List<PersonInfoDto> personsInfo;
+    public UUID id;
+    public String name;
+    public String description;
+    public String duration;
+    public String distance;
+    public String coverUrl;
+    public RoutePurchaseDto purchase;
+    public List<PersonInfoDto> personsInfo;
 
     public RouteDto(DBRoute dbModel) {
         id = dbModel.getId();

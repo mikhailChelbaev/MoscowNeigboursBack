@@ -4,9 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "db_user")
@@ -47,6 +45,11 @@ public class DBUser {
     @Setter
     @Column(name = "verification_code")
     private String verificationCode;
+
+    @Setter
+    @OneToMany()
+    @Builder.Default
+    private Set<DBRoute> purchasedRoutes = new HashSet<>();
 
     @Setter
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

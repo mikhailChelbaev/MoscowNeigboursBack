@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @RestController
@@ -45,6 +46,17 @@ public class RoutesController {
         } else {
             return routeService.getAllRoutes(versionValue > 1.2);
         }
+    }
+
+    @PostMapping("purchase/{id}")
+    public ResponseEntity<?> purchaseProduct(@PathVariable("id") UUID id,
+                                             Principal user) {
+        if (user == null) {
+            return ResponseEntity.badRequest()
+                    .body(MessageResponse.of("User not authorized"));
+        }
+        routeService.purchaseProduct(user.getName(), id);
+        return ResponseEntity.ok(MessageResponse.of("Product purchased successfully"));
     }
 
 }
