@@ -4,6 +4,7 @@ import com.moscow.neighbours.backend.controllers.routes.dto.RouteDto;
 import com.moscow.neighbours.backend.controllers.routes_upload.dto.ImageUploadResponseDto;
 import com.moscow.neighbours.backend.controllers.routes_upload.service.interfaces.IRoutesUploadService;
 import com.moscow.neighbours.backend.dto.MessageResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(path="/api/routes/hidden/upload")
 @CrossOrigin(origins = {"*"}, maxAge = 3600)
+@Slf4j
 public class RoutesUploadController {
 
     private final IRoutesUploadService uploadService;
@@ -31,7 +33,7 @@ public class RoutesUploadController {
 
     @PostMapping()
     public ResponseEntity<?> uploadRoutes(@RequestBody List<RouteDto> routesUploadDtoList) {
-        logger.info("POST: /api/routes/hidden/upload/");
+        log.info("POST: /api/routes/hidden/upload/");
         uploadService.saveRoutes(routesUploadDtoList);
         return ResponseEntity.ok(MessageResponse.of("Routes uploaded successfully"));
     }
@@ -41,7 +43,7 @@ public class RoutesUploadController {
             @RequestParam("person_id") UUID personId,
             @RequestPart("file") @Valid MultipartFile file
     ) {
-        logger.info("POST: /api/routes/hidden/upload/person/avatar{}", personId);
+        log.info("POST: /api/routes/hidden/upload/person/avatar{}", personId);
 
         return ResponseEntity.ok(
                 ImageUploadResponseDto.of(
@@ -55,7 +57,7 @@ public class RoutesUploadController {
             @RequestParam("route_id") UUID routeId,
             @RequestPart("file") @Valid MultipartFile file
     ) {
-        logger.info("POST: /api/routes/hidden/upload/route/cover{}", routeId);
+        log.info("POST: /api/routes/hidden/upload/route/cover{}", routeId);
 
         return ResponseEntity.ok(
                 ImageUploadResponseDto.of(
@@ -63,7 +65,5 @@ public class RoutesUploadController {
                 )
         );
     }
-
-    private static final Logger logger = LoggerFactory.getLogger(RoutesUploadController.class);
 
 }
