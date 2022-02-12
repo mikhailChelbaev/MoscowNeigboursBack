@@ -32,6 +32,8 @@ public class DBRoute {
 
     private String distance;
 
+    private Integer presentationPosition;
+
     @Setter
     private String coverUrl;
 

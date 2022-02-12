@@ -24,6 +24,7 @@ public class RouteDto implements IEntityPresentable<DBRoute>, Serializable {
     public String coverUrl;
     public RoutePurchaseDto purchase;
     public List<PersonInfoDto> personsInfo;
+    public Integer position;
 
     public RouteDto(DBRoute dbModel) {
         id = dbModel.getId();
@@ -36,6 +37,7 @@ public class RouteDto implements IEntityPresentable<DBRoute>, Serializable {
                 .map(PersonInfoDto::new)
                 .collect(Collectors.toList());
         purchase = new RoutePurchaseDto(dbModel.getPurchase());
+        position = dbModel.getPresentationPosition();
     }
 
     @Override
@@ -46,6 +48,7 @@ public class RouteDto implements IEntityPresentable<DBRoute>, Serializable {
                 description,
                 duration,
                 distance,
+                position,
                 coverUrl,
                 purchase.toDBModel(),
                 personsInfo.stream()
