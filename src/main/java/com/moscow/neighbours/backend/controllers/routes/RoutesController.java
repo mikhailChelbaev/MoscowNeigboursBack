@@ -41,10 +41,14 @@ public class RoutesController {
             log.error("Failed to get app version");
         }
 
+        if (versionValue < 1.3) {
+            return routeService.getAllRoutes(false);
+        }
+
         if (user != null) {
             return routeService.getRoutesForUser(user.getName());
         } else {
-            return routeService.getAllRoutes(versionValue > 1.2);
+            return routeService.getAllRoutes(true);
         }
     }
 
