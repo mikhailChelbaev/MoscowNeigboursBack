@@ -32,6 +32,7 @@ public class RoutesController {
     @GetMapping()
     public List<RouteDto> getRoutes(@RequestHeader Map<String, String> headers,
                                     Principal user) {
+        log.info("GET: /api/v1/routes");
         var version = headers.get("version");
         List<Integer> versionValue = Arrays.asList(1, 0, 0);
 
@@ -59,6 +60,7 @@ public class RoutesController {
     @PostMapping("purchase/{id}")
     public ResponseEntity<?> purchaseProduct(@PathVariable("id") UUID id,
                                              Principal user) {
+        log.info("POST: /api/v1/routes/purchase/{id}");
         if (user == null) {
             return ResponseEntity.badRequest()
                     .body(MessageResponse.of("User not authorized"));

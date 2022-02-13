@@ -59,6 +59,7 @@ public class RoutesServiceImpl implements IRouteService, Serializable {
                     }
                     return route;
                 })
+                .sorted(Comparator.comparing(x -> x.position))
                 .collect(Collectors.toList());
     }
 
@@ -71,5 +72,6 @@ public class RoutesServiceImpl implements IRouteService, Serializable {
                 () -> new RoutePurchaseException("Route not found")
         );
         user.getPurchasedRoutes().add(route);
+        userRepository.saveAndFlush(user);
     }
 }
