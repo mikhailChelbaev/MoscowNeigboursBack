@@ -10,10 +10,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path="/api/v1/routes")
@@ -34,14 +33,19 @@ public class RoutesController {
     public List<RouteDto> getRoutes(@RequestHeader Map<String, String> headers,
                                     Principal user) {
         var version = headers.get("version");
-        float versionValue = 1;
-        try {
-            versionValue = Float.parseFloat(version);
-        } catch (Exception ex) {
-            log.error("Failed to get app version");
+        List<Integer> versionValue = Arrays.asList(1, 0, 0);
+
+        if (version != null) {
+            try {
+                versionValue = Arrays.stream(version.split("\\."))
+                        .map(Integer::valueOf)
+                        .collect(Collectors.toList());
+            } catch (Exception ex) {
+                log.error("Failed to get app version");
+            }
         }
 
-        if (versionValue < 1.3) {
+        if (compareVersions(versionValue, Arrays.asList(1, 2, 0)) <= 0) {
             return routeService.getAllRoutes(false);
         }
 
@@ -61,6 +65,31 @@ public class RoutesController {
         }
         routeService.purchaseProduct(user.getName(), id);
         return ResponseEntity.ok(MessageResponse.of("Product purchased successfully"));
+    }
+
+    // MARK: - Helpers
+
+    private int compareVersions(List<Integer> lhs, List<Integer> rhs) {
+        while (lhs.size() < 3) {
+            lhs.add(0);
+        }
+        while (rhs.size() < 3) {
+            rhs.add(0);
+        }
+
+        if (lhs.get(0) < rhs.get(0)) {
+            return -1;
+        } else if (lhs.get(0) > rhs.get(0)) {
+            return 1;
+        } else {
+            if (lhs.get(1) < rhs.get(1)) {
+                return -1;
+            } else if (lhs.get(1) > rhs.get(1)) {
+                return 1;
+            } else {
+                return lhs.get(2).compareTo(rhs.get(2));
+            }
+        }
     }
 
 }
