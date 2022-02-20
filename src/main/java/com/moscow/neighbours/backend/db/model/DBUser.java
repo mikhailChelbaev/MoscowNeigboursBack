@@ -46,8 +46,13 @@ public class DBUser {
     @Column(name = "verification_code")
     private String verificationCode;
 
-    @Setter
-    @OneToMany()
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "db_user_purchases",
+            joinColumns = @JoinColumn(name="user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="purchase_id", referencedColumnName = "id")
+    )
     @Builder.Default
     private Set<DBRoute> purchasedRoutes = new HashSet<>();
 
