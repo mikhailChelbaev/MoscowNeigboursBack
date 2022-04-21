@@ -22,9 +22,9 @@ public class EmailServiceImpl implements IEmailService {
     @Value("${app.team-email.password}")
     private String techEmailPassword;
 
-    private final String host = "smtp.gmail.com";
+    private final String host = "smtp.yandex.ru";
 
-    private final String port = "587";
+    private final String port = "465";
 
     private final Properties properties;
 
@@ -35,6 +35,7 @@ public class EmailServiceImpl implements IEmailService {
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", port);
         properties.put("mail.smtp.ssl.trust", host);
+        properties.put("mail.smtp.ssl.enable", "true");
     }
 
     @PostConstruct
@@ -45,8 +46,7 @@ public class EmailServiceImpl implements IEmailService {
 
     @Override
     public boolean isActive() {
-//        return techEmail != null && techEmailPassword != null;
-        return false;
+        return techEmail != null && techEmailPassword != null;
     }
 
     @Override
