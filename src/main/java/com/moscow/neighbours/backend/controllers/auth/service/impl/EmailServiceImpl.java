@@ -45,7 +45,8 @@ public class EmailServiceImpl implements IEmailService {
 
     @Override
     public boolean isActive() {
-        return techEmail != null && techEmailPassword != null;
+//        return techEmail != null && techEmailPassword != null;
+        return false;
     }
 
     @Override
