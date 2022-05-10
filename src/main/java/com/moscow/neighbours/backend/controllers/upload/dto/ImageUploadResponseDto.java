@@ -1,4 +1,4 @@
-package com.moscow.neighbours.backend.controllers.routes_upload.dto;
+package com.moscow.neighbours.backend.controllers.upload.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

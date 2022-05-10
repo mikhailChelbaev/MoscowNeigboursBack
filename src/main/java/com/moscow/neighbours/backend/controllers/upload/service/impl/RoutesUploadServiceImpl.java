@@ -1,9 +1,9 @@
-package com.moscow.neighbours.backend.controllers.routes_upload.service.impl;
+package com.moscow.neighbours.backend.controllers.upload.service.impl;
 
 import com.moscow.neighbours.backend.controllers.images.service.interfaces.IImageUploadService;
 import com.moscow.neighbours.backend.controllers.routes.dto.RouteDto;
-import com.moscow.neighbours.backend.controllers.routes_upload.exceptions.RoutesUploadControllerException;
-import com.moscow.neighbours.backend.controllers.routes_upload.service.interfaces.IRoutesUploadService;
+import com.moscow.neighbours.backend.controllers.upload.exceptions.RoutesUploadControllerException;
+import com.moscow.neighbours.backend.controllers.upload.service.interfaces.IRoutesUploadService;
 import com.moscow.neighbours.backend.db.datasource.PersonRepository;
 import com.moscow.neighbours.backend.db.datasource.RouteRepository;
 import com.moscow.neighbours.backend.db.model.DBRoute;
@@ -13,11 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.Serializable;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

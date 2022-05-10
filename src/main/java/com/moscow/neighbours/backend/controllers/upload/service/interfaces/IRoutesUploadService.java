@@ -1,4 +1,4 @@
-package com.moscow.neighbours.backend.controllers.routes_upload.service.interfaces;
+package com.moscow.neighbours.backend.controllers.upload.service.interfaces;
 
 import com.moscow.neighbours.backend.controllers.routes.dto.RouteDto;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,4 +1,4 @@
-package com.moscow.neighbours.backend.controllers.routes_upload.exceptions;
+package com.moscow.neighbours.backend.controllers.upload.exceptions;
 
 import com.moscow.neighbours.backend.exceptions.BaseException;
 
