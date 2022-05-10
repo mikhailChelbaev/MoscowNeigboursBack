@@ -1,7 +1,9 @@
 package com.moscow.neighbours.backend.controllers.upload;
 
 import com.moscow.neighbours.backend.controllers.routes.dto.RouteDto;
+import com.moscow.neighbours.backend.controllers.upload.dto.AchievementUploadDto;
 import com.moscow.neighbours.backend.controllers.upload.dto.ImageUploadResponseDto;
+import com.moscow.neighbours.backend.controllers.upload.service.interfaces.IAchievementsUploadService;
 import com.moscow.neighbours.backend.controllers.upload.service.interfaces.IRoutesUploadService;
 import com.moscow.neighbours.backend.controllers.upload.service.interfaces.IUploadRouteImagesService;
 import com.moscow.neighbours.backend.dto.MessageResponse;
@@ -23,17 +25,22 @@ public class UploadController {
 
     private final IRoutesUploadService routesUploadService;
     private final IUploadRouteImagesService imagesUploadService;
+    private final IAchievementsUploadService achievementsUploadService;
 
     @Autowired
     public UploadController(
             IRoutesUploadService routesUploadService,
-            IUploadRouteImagesService imagesUploadService
+            IUploadRouteImagesService imagesUploadService,
+            IAchievementsUploadService achievementsUploadService
     ) {
         this.routesUploadService = routesUploadService;
         this.imagesUploadService = imagesUploadService;
+        this.achievementsUploadService = achievementsUploadService;
     }
 
-    @PostMapping()
+    // MARK: - Routes
+
+    @PostMapping("/routes")
     public ResponseEntity<?> uploadRoutes(@RequestBody List<RouteDto> routesUploadDtoList) {
         log.info("POST: /api/hidden/upload/routes");
         routesUploadService.saveRoutes(routesUploadDtoList);
@@ -66,6 +73,15 @@ public class UploadController {
                         imagesUploadService.updateRouteCover(routeId, file)
                 )
         );
+    }
+
+    // MARK: - Achievements
+
+    @PostMapping("/achievements")
+    public ResponseEntity<?> uploadAchievements(@RequestBody List<AchievementUploadDto> achievements) {
+        log.info("POST: /api/hidden/upload/achievements");
+        achievementsUploadService.saveAchievements(achievements);
+        return ResponseEntity.ok(MessageResponse.of("Achievements uploaded successfully"));
     }
 
 }
