@@ -6,6 +6,7 @@ import com.moscow.neighbours.backend.db.model.entities.DBRoutePurchase;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -53,7 +54,8 @@ public class RouteDto implements IEntityPresentable<DBRoute>, Serializable {
                 purchase.toDBModel(),
                 personsInfo.stream()
                         .map(PersonInfoDto::toDBModel)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                new ArrayList<>()
         );
     }
 

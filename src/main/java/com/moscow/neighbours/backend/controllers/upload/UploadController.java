@@ -15,7 +15,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path="/api/routes/hidden/upload")
+@RequestMapping(path="/api/hidden/upload")
 @CrossOrigin(origins = {"*"}, maxAge = 3600)
 @Slf4j
 public class UploadController {
@@ -31,7 +31,7 @@ public class UploadController {
 
     @PostMapping()
     public ResponseEntity<?> uploadRoutes(@RequestBody List<RouteDto> routesUploadDtoList) {
-        log.info("POST: /api/routes/hidden/upload/");
+        log.info("POST: /api/hidden/upload/routes");
         uploadService.saveRoutes(routesUploadDtoList);
         return ResponseEntity.ok(MessageResponse.of("Routes uploaded successfully"));
     }
@@ -41,7 +41,7 @@ public class UploadController {
             @RequestParam("person_id") UUID personId,
             @RequestPart("file") @Valid MultipartFile file
     ) {
-        log.info("POST: /api/routes/hidden/upload/person/avatar{}", personId);
+        log.info("POST: /api/hidden/upload/person/avatar{}", personId);
 
         return ResponseEntity.ok(
                 ImageUploadResponseDto.of(
@@ -55,7 +55,7 @@ public class UploadController {
             @RequestParam("route_id") UUID routeId,
             @RequestPart("file") @Valid MultipartFile file
     ) {
-        log.info("POST: /api/routes/hidden/upload/route/cover{}", routeId);
+        log.info("POST: /api/hidden/upload/route/cover{}", routeId);
 
         return ResponseEntity.ok(
                 ImageUploadResponseDto.of(
