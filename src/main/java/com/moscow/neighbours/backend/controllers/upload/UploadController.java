@@ -52,7 +52,7 @@ public class UploadController {
             @RequestParam("person_id") UUID personId,
             @RequestPart("file") @Valid MultipartFile file
     ) {
-        log.info("POST: /api/hidden/upload/person/avatar{}", personId);
+        log.info("POST: /api/hidden/upload/person/avatar: {}", personId);
 
         return ResponseEntity.ok(
                 ImageUploadResponseDto.of(
@@ -66,7 +66,7 @@ public class UploadController {
             @RequestParam("route_id") UUID routeId,
             @RequestPart("file") @Valid MultipartFile file
     ) {
-        log.info("POST: /api/hidden/upload/route/cover{}", routeId);
+        log.info("POST: /api/hidden/upload/route/cover: {}", routeId);
 
         return ResponseEntity.ok(
                 ImageUploadResponseDto.of(
@@ -82,6 +82,23 @@ public class UploadController {
         log.info("POST: /api/hidden/upload/achievements");
         achievementsUploadService.saveAchievements(achievements);
         return ResponseEntity.ok(MessageResponse.of("Achievements uploaded successfully"));
+    }
+
+    @RequestMapping(
+            value = "/achievement/image",
+            method = RequestMethod.POST,
+            consumes = { "multipart/form-data" })
+    public ResponseEntity<?> uploadAchievementImage(
+            @RequestParam("achievement_id") UUID achievementId,
+            @RequestPart("file") @Valid MultipartFile file
+    ) {
+        log.info("POST: /api/hidden/upload/achievement/image: {}", achievementId);
+
+        return ResponseEntity.ok(
+                ImageUploadResponseDto.of(
+                        imagesUploadService.updateAchievementImage(achievementId, file)
+                )
+        );
     }
 
 }

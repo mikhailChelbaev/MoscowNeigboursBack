@@ -4,8 +4,10 @@ import com.moscow.neighbours.backend.controllers.images.service.interfaces.IImag
 import com.moscow.neighbours.backend.controllers.upload.exceptions.RoutesUploadControllerException;
 import com.moscow.neighbours.backend.controllers.upload.service.interfaces.IUploadRouteImagesService;
 import com.moscow.neighbours.backend.db.ImagePresentable;
+import com.moscow.neighbours.backend.db.datasource.AchievementRepository;
 import com.moscow.neighbours.backend.db.datasource.PersonRepository;
 import com.moscow.neighbours.backend.db.datasource.RouteRepository;
+import com.moscow.neighbours.backend.db.model.DBAchievement;
 import com.moscow.neighbours.backend.db.model.DBRoute;
 import com.moscow.neighbours.backend.db.model.entities.DBPerson;
 import org.springframework.stereotype.Service;
@@ -20,15 +22,18 @@ public class UploadRouteImagesServiceImpl implements IUploadRouteImagesService {
 
     private final RouteRepository routeRepository;
     private final PersonRepository personRepository;
+    private final AchievementRepository achievementRepository;
     private final IImageUploadService imageUploadService;
 
     public UploadRouteImagesServiceImpl(
             RouteRepository routeRepository,
             PersonRepository personRepository,
+            AchievementRepository achievementRepository,
             IImageUploadService imageUploadService
     ) {
         this.routeRepository = routeRepository;
         this.personRepository = personRepository;
+        this.achievementRepository = achievementRepository;
         this.imageUploadService = imageUploadService;
     }
 
@@ -57,6 +62,20 @@ public class UploadRouteImagesServiceImpl implements IUploadRouteImagesService {
         var unwrappedRoute = route.get();
         var fileDownloadUri = updateImage(unwrappedRoute, file);
         routeRepository.save(unwrappedRoute);
+        return fileDownloadUri;
+    }
+
+    @Override
+    public String updateAchievementImage(UUID achievementId, MultipartFile file) {
+        Optional<DBAchievement> achievement = achievementRepository.findById(achievementId);
+
+        if (achievement.isEmpty()) {
+            throw new RoutesUploadControllerException("There is no achievement with given id");
+        }
+
+        var unwrappedAchievement = achievement.get();
+        var fileDownloadUri = updateImage(unwrappedAchievement, file);
+        achievementRepository.save(unwrappedAchievement);
         return fileDownloadUri;
     }
 
