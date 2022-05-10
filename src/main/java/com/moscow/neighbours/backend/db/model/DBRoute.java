@@ -1,8 +1,6 @@
 package com.moscow.neighbours.backend.db.model;
 
-import com.moscow.neighbours.backend.db.model.entities.DBPerson;
 import com.moscow.neighbours.backend.db.model.entities.DBRoutePurchase;
-import com.moscow.neighbours.backend.models.RoutePurchaseStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -43,4 +41,6 @@ public class DBRoute {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DBPersonInfo> personInfo;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<DBAchievement> achievements;
 }
