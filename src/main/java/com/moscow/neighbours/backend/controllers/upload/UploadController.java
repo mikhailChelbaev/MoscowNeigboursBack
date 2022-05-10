@@ -3,6 +3,7 @@ package com.moscow.neighbours.backend.controllers.upload;
 import com.moscow.neighbours.backend.controllers.routes.dto.RouteDto;
 import com.moscow.neighbours.backend.controllers.upload.dto.ImageUploadResponseDto;
 import com.moscow.neighbours.backend.controllers.upload.service.interfaces.IRoutesUploadService;
+import com.moscow.neighbours.backend.controllers.upload.service.interfaces.IUploadRouteImagesService;
 import com.moscow.neighbours.backend.dto.MessageResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +21,22 @@ import javax.validation.Valid;
 @Slf4j
 public class UploadController {
 
-    private final IRoutesUploadService uploadService;
+    private final IRoutesUploadService routesUploadService;
+    private final IUploadRouteImagesService imagesUploadService;
 
     @Autowired
     public UploadController(
-            IRoutesUploadService uploadService
+            IRoutesUploadService routesUploadService,
+            IUploadRouteImagesService imagesUploadService
     ) {
-        this.uploadService = uploadService;
+        this.routesUploadService = routesUploadService;
+        this.imagesUploadService = imagesUploadService;
     }
 
     @PostMapping()
     public ResponseEntity<?> uploadRoutes(@RequestBody List<RouteDto> routesUploadDtoList) {
         log.info("POST: /api/hidden/upload/routes");
-        uploadService.saveRoutes(routesUploadDtoList);
+        routesUploadService.saveRoutes(routesUploadDtoList);
         return ResponseEntity.ok(MessageResponse.of("Routes uploaded successfully"));
     }
 
@@ -45,7 +49,7 @@ public class UploadController {
 
         return ResponseEntity.ok(
                 ImageUploadResponseDto.of(
-                        uploadService.updatePersonAvatar(personId, file)
+                        imagesUploadService.updatePersonAvatar(personId, file)
                 )
         );
     }
@@ -59,7 +63,7 @@ public class UploadController {
 
         return ResponseEntity.ok(
                 ImageUploadResponseDto.of(
-                        uploadService.updateRouteCover(routeId, file)
+                        imagesUploadService.updateRouteCover(routeId, file)
                 )
         );
     }

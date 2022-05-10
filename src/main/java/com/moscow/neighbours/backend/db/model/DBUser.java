@@ -1,5 +1,6 @@
 package com.moscow.neighbours.backend.db.model;
 
+import com.moscow.neighbours.backend.db.ImagePresentable;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
@@ -64,5 +65,4 @@ public class DBUser {
             inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "id"))
     @Builder.Default
     private Collection<DBRole> roles = new ArrayList<>();
-
 }

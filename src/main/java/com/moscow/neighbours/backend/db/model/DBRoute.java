@@ -1,5 +1,6 @@
 package com.moscow.neighbours.backend.db.model;
 
+import com.moscow.neighbours.backend.db.ImagePresentable;
 import com.moscow.neighbours.backend.db.model.entities.DBRoutePurchase;
 import lombok.*;
 
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DBRoute {
+public class DBRoute implements ImagePresentable {
 
     @Id
     @Column(name = "id", columnDefinition = "uuid")
@@ -43,4 +44,16 @@ public class DBRoute {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DBAchievement> achievements;
+
+    // MARK: - interface ImagePresentable
+
+    @Override
+    public String getImageUrl() {
+        return getCoverUrl();
+    }
+
+    @Override
+    public void setImageUrl(String imageUrl) {
+        setCoverUrl(imageUrl);
+    }
 }

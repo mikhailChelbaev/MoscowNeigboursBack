@@ -1,5 +1,6 @@
 package com.moscow.neighbours.backend.db.model.entities;
 
+import com.moscow.neighbours.backend.db.ImagePresentable;
 import com.moscow.neighbours.backend.db.model.DBPersonInfo;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DBPerson {
+public class DBPerson implements ImagePresentable {
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
@@ -30,4 +31,16 @@ public class DBPerson {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DBShortInfo> info;
+
+    // MARK: - interface ImagePresentable
+
+    @Override
+    public String getImageUrl() {
+        return getAvatarUrl();
+    }
+
+    @Override
+    public void setImageUrl(String imageUrl) {
+        setAvatarUrl(imageUrl);
+    }
 }
