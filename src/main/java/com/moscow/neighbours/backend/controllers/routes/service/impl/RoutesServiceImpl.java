@@ -45,6 +45,7 @@ public class RoutesServiceImpl implements IRouteService, Serializable {
         var user = userRepository.findByUserId(userId).orElseThrow(
                 () -> new FetchRoutesException("User not found")
         );
+
         var purchasedRouteIds = user.getPurchasedRoutes().stream().map(
                 DBRoute::getId
         ).collect(Collectors.toList());

@@ -54,7 +54,7 @@ public class RouteDto implements IEntityPresentable<DBRoute>, Serializable {
                 personsInfo.stream()
                         .map(PersonInfoDto::toDBModel)
                         .collect(Collectors.toList()),
-                new ArrayList<>()
+                null
         );
     }
 

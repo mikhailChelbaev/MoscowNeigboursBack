@@ -42,8 +42,9 @@ public class DBRoute implements ImagePresentable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DBPersonInfo> personInfo;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<DBAchievement> achievements;
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private DBAchievement achievement;
 
     // MARK: - interface ImagePresentable
 
