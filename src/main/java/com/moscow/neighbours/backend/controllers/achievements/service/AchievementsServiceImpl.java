@@ -93,11 +93,15 @@ class AchievementMapper {
         return Objects.nonNull(date) ? dbModel.getCompletedImageUrl() : dbModel.getUncompletedImageUrl();
     }
 
+    private static String getDescription(DBAchievement dbModel, Date date) {
+        return Objects.nonNull(date) ? dbModel.getCompletedDescription() : dbModel.getUncompletedDescription();
+    }
+
     static AchievementDto map(DBAchievement dbModel, Date date) {
         return new AchievementDto(
                 dbModel.getId(),
                 dbModel.getName(),
-                dbModel.getDescription(),
+                getDescription(dbModel, date),
                 date,
                 getImage(dbModel, date));
     }

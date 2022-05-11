@@ -5,6 +5,7 @@ import java.util.UUID;
 public class AchievementUploadDto {
     public UUID id;
     public String name;
-    public String description;
+    public String completedDescription;
+    public String uncompletedDescription;
     public UUID routeId;
 }

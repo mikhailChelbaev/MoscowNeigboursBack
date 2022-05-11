@@ -76,7 +76,8 @@ class AchievementUploadDtoMapper {
         return new DBAchievement(
                 Objects.nonNull(dto.id) ? dto.id : UUID.randomUUID(),
                 dto.name,
-                dto.description,
+                dto.completedDescription,
+                dto.uncompletedDescription,
                 null,
                 null);
     }

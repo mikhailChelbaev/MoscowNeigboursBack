@@ -20,7 +20,10 @@ public class DBAchievement {
     private String name;
 
     @Column(columnDefinition="text")
-    private String description;
+    private String completedDescription;
+
+    @Column(columnDefinition="text")
+    private String uncompletedDescription;
 
     @Setter
     private String completedImageUrl;
