@@ -25,6 +25,7 @@ public class RouteDto implements IEntityPresentable<DBRoute>, Serializable {
     public RoutePurchaseDto purchase;
     public List<PersonInfoDto> personsInfo;
     public Integer position;
+    public RouteAchievementDto achievement;
 
     public RouteDto(DBRoute dbModel) {
         id = dbModel.getId();

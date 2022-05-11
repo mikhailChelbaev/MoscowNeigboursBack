@@ -6,12 +6,10 @@ import lombok.Data;
 @Data
 public class RouteAchievementDto {
     String name;
-    String date;
     String imageUrl;
 
-    public RouteAchievementDto (DBAchievement dbModel, String receiveDate) {
+    public RouteAchievementDto (DBAchievement dbModel) {
         name = dbModel.getName();
-        date = receiveDate;
         imageUrl = dbModel.getImageUrl();
     }
 }
