@@ -34,11 +34,10 @@ public class AchievementsServiceImpl implements IAchievementsStore, IAchievement
     @Override
     public void saveAchievement(String email, CompletedAchievementDto dto) {
         var user = userRepository.findByUserId(email);
-        user.ifPresentOrElse(unwrappedUser -> {
-            unwrappedUser.getCompletedAchievements().add(new DBCompletedAchievement(
-                    dto.achievementId,
-                    dto.date));
-        }, () -> {
+        user.ifPresentOrElse(unwrappedUser -> unwrappedUser
+                .getCompletedAchievements()
+                .add(new DBCompletedAchievement(dto.achievementId, dto.date)),
+                () -> {
             throw new UserNotFoundException();
         });
     }
@@ -72,19 +71,17 @@ public class AchievementsServiceImpl implements IAchievementsStore, IAchievement
     private List<AchievementDto> getCompletedAchievements(String userEmail) {
         var user = userRepository.findByUserId(userEmail);
 
-        return user.map(unwrappedUser -> {
-                    return unwrappedUser
-                            .getCompletedAchievements()
-                            .stream()
-                            .map(data -> {
-                                var achievement = achievementRepository.findById(data.getAchievementId());
-                                return achievement
-                                        .map(dbAchievement -> AchievementMapper.map(dbAchievement, data.getDate()))
-                                        .orElse(null);
-                            })
-                            .filter(Objects::nonNull)
-                            .collect(Collectors.toList());
+        return user.map(unwrappedUser -> unwrappedUser
+                .getCompletedAchievements()
+                .stream()
+                .map(data -> {
+                    var achievement = achievementRepository.findById(data.getAchievementId());
+                    return achievement
+                            .map(dbAchievement -> AchievementMapper.map(dbAchievement, data.getDate()))
+                            .orElse(null);
                 })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList()))
                 .orElse(new ArrayList<>());
     }
 }
@@ -92,11 +89,16 @@ public class AchievementsServiceImpl implements IAchievementsStore, IAchievement
 class AchievementMapper {
     private AchievementMapper() {}
 
+    private static String getImage(DBAchievement dbModel, Date date) {
+        return Objects.nonNull(date) ? dbModel.getCompletedImageUrl() : dbModel.getUncompletedImageUrl();
+    }
+
     static AchievementDto map(DBAchievement dbModel, Date date) {
         return new AchievementDto(
+                dbModel.getId(),
                 dbModel.getName(),
                 dbModel.getDescription(),
                 date,
-                Objects.nonNull(date) ? dbModel.getCompletedImageUrl() : dbModel.getUncompletedImageUrl());
+                getImage(dbModel, date));
     }
 }
