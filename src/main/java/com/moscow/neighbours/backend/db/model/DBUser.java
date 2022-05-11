@@ -65,4 +65,8 @@ public class DBUser {
             inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "id"))
     @Builder.Default
     private Collection<DBRole> roles = new ArrayList<>();
+
+    @OneToMany
+    @Builder.Default
+    private Set<DBCompletedAchievement> completedAchievements = new HashSet<>();
 }

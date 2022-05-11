@@ -20,8 +20,6 @@ public class DBAchievement implements ImagePresentable {
     @Column(columnDefinition="text")
     private String description;
 
-    private String date;
-
     @Setter
     private String imageUrl;
 }

@@ -9,9 +9,9 @@ public class RouteAchievementDto {
     String date;
     String imageUrl;
 
-    public RouteAchievementDto (DBAchievement dbModel) {
+    public RouteAchievementDto (DBAchievement dbModel, String receiveDate) {
         name = dbModel.getName();
-        date = dbModel.getDate();
+        date = receiveDate;
         imageUrl = dbModel.getImageUrl();
     }
 }
