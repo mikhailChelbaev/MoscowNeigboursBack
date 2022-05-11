@@ -15,6 +15,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class DBCompletedAchievement {
     @Id
     private UUID achievementId;
