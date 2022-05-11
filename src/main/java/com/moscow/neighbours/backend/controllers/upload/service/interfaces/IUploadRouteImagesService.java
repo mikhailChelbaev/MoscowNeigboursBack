@@ -7,5 +7,6 @@ import java.util.UUID;
 public interface IUploadRouteImagesService {
     String updatePersonAvatar(UUID personId, MultipartFile file);
     String updateRouteCover(UUID routeId, MultipartFile file);
-    String updateAchievementImage(UUID achievementId, MultipartFile file);
+    String updateCompletedAchievementImage(UUID achievementId, MultipartFile file);
+    String updateUncompletedAchievementImage(UUID achievementId, MultipartFile file);
 }

@@ -10,6 +10,6 @@ public class RouteAchievementDto {
 
     public RouteAchievementDto (DBAchievement dbModel) {
         name = dbModel.getName();
-        imageUrl = dbModel.getImageUrl();
+        imageUrl = dbModel.getCompletedImageUrl();
     }
 }

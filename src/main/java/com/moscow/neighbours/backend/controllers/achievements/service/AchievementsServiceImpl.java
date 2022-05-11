@@ -90,14 +90,13 @@ public class AchievementsServiceImpl implements IAchievementsStore, IAchievement
 }
 
 class AchievementMapper {
-    private AchievementMapper() {
-    }
+    private AchievementMapper() {}
 
     static AchievementDto map(DBAchievement dbModel, Date date) {
         return new AchievementDto(
                 dbModel.getName(),
                 dbModel.getDescription(),
                 date,
-                dbModel.getImageUrl());
+                Objects.nonNull(date) ? dbModel.getCompletedImageUrl() : dbModel.getUncompletedImageUrl());
     }
 }

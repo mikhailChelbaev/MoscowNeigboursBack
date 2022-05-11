@@ -85,18 +85,33 @@ public class UploadController {
     }
 
     @RequestMapping(
-            value = "/achievement/image",
+            value = "/achievement/completed_image",
             method = RequestMethod.POST,
             consumes = { "multipart/form-data" })
-    public ResponseEntity<?> uploadAchievementImage(
+    public ResponseEntity<?> uploadCompletedAchievementImage(
             @RequestParam("achievement_id") UUID achievementId,
-            @RequestPart("file") @Valid MultipartFile file
-    ) {
-        log.info("POST: /api/hidden/upload/achievement/image: {}", achievementId);
+            @RequestPart("file") @Valid MultipartFile file) {
+        log.info("POST: /api/hidden/upload/achievement/completed_image: {}", achievementId);
 
         return ResponseEntity.ok(
                 ImageUploadResponseDto.of(
-                        imagesUploadService.updateAchievementImage(achievementId, file)
+                        imagesUploadService.updateCompletedAchievementImage(achievementId, file)
+                )
+        );
+    }
+
+    @RequestMapping(
+            value = "/achievement/uncompleted_image",
+            method = RequestMethod.POST,
+            consumes = { "multipart/form-data" })
+    public ResponseEntity<?> uploadUncompletedAchievementImage(
+            @RequestParam("achievement_id") UUID achievementId,
+            @RequestPart("file") @Valid MultipartFile file) {
+        log.info("POST: /api/hidden/upload/achievement/uncompleted_image: {}", achievementId);
+
+        return ResponseEntity.ok(
+                ImageUploadResponseDto.of(
+                        imagesUploadService.updateUncompletedAchievementImage(achievementId, file)
                 )
         );
     }

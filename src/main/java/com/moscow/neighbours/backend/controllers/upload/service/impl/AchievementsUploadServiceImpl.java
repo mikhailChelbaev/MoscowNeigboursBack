@@ -77,6 +77,7 @@ class AchievementUploadDtoMapper {
                 Objects.nonNull(dto.id) ? dto.id : UUID.randomUUID(),
                 dto.name,
                 dto.description,
+                null,
                 null);
     }
 }
