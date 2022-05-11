@@ -83,7 +83,7 @@ public class RoutesServiceImpl implements IRouteService {
         if (purchasedRouteIds.contains(route.getId())) {
             route.purchase.status = RoutePurchaseStatus.PURCHASED.name().toLowerCase();
         }
-        if (!receivedAchievements.contains(dbRoute.getAchievement().getId())) {
+        if (dbRoute.getAchievement() != null && !receivedAchievements.contains(dbRoute.getAchievement().getId())) {
             route.achievement = new RouteAchievementDto(dbRoute.getAchievement());
         }
         return route;

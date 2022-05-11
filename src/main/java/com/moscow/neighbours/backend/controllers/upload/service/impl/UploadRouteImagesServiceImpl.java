@@ -103,19 +103,23 @@ public class UploadRouteImagesServiceImpl implements IUploadRouteImagesService {
         }
     }
 
-    private String parseFileName(String path) throws RoutesUploadControllerException {
+    private String parseFileName(String path) {
         var parts = path.split("/");
         var length = parts.length;
-        if (length == 0) {
-            throw new RoutesUploadControllerException("Wrong user avatar url");
+
+        if (length > 0) {
+            return parts[length - 1];
+        } else {
+            return null;
         }
-        return parts[length - 1];
     }
 
     private void deleteImage(String imageUlr) {
         if (imageUlr == null) { return; }
 
         var filename = parseFileName(imageUlr);
-        imageUploadService.deleteFile(filename);
+        if (filename != null) {
+            imageUploadService.deleteFile(filename);
+        }
     }
 }
