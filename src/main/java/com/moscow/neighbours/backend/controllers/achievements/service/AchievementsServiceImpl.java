@@ -5,8 +5,8 @@ import com.moscow.neighbours.backend.controllers.achievements.dto.AchievementSec
 import com.moscow.neighbours.backend.controllers.achievements.dto.CompletedAchievementDto;
 import com.moscow.neighbours.backend.db.datasource.AchievementRepository;
 import com.moscow.neighbours.backend.db.datasource.UserRepository;
-import com.moscow.neighbours.backend.db.model.DBAchievement;
-import com.moscow.neighbours.backend.db.model.DBCompletedAchievement;
+import com.moscow.neighbours.backend.db.model.achievements.DBAchievement;
+import com.moscow.neighbours.backend.db.model.achievements.DBCompletedAchievement;
 import com.moscow.neighbours.backend.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
 

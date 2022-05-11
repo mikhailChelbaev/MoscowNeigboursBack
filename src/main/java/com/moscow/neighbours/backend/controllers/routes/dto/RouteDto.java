@@ -1,8 +1,7 @@
 package com.moscow.neighbours.backend.controllers.routes.dto;
 
 import com.moscow.neighbours.backend.controllers.routes.interfaces.IEntityPresentable;
-import com.moscow.neighbours.backend.db.model.DBRoute;
-import com.moscow.neighbours.backend.db.model.entities.DBRoutePurchase;
+import com.moscow.neighbours.backend.db.model.route.DBRoute;
 import lombok.*;
 
 import java.io.Serializable;

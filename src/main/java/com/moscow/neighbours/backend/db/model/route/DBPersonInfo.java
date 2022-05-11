@@ -1,8 +1,8 @@
-package com.moscow.neighbours.backend.db.model;
+package com.moscow.neighbours.backend.db.model.route;
 
-import com.moscow.neighbours.backend.db.model.entities.DBLocationCoordinate;
-import com.moscow.neighbours.backend.db.model.entities.DBPerson;
-import com.moscow.neighbours.backend.db.model.entities.DBPlace;
+import com.moscow.neighbours.backend.db.model.route.DBLocationCoordinate;
+import com.moscow.neighbours.backend.db.model.route.DBPerson;
+import com.moscow.neighbours.backend.db.model.route.DBPlace;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

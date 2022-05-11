@@ -1,6 +1,7 @@
-package com.moscow.neighbours.backend.db.model;
+package com.moscow.neighbours.backend.db.model.user;
 
-import com.moscow.neighbours.backend.db.ImagePresentable;
+import com.moscow.neighbours.backend.db.model.route.DBRoute;
+import com.moscow.neighbours.backend.db.model.achievements.DBCompletedAchievement;
 import lombok.*;
 import org.hibernate.annotations.Type;
 

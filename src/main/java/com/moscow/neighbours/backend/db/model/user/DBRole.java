@@ -1,4 +1,4 @@
-package com.moscow.neighbours.backend.db.model;
+package com.moscow.neighbours.backend.db.model.user;
 
 import lombok.*;
 

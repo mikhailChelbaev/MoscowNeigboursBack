@@ -1,7 +1,7 @@
 package com.moscow.neighbours.backend.controllers.auth.service.interfaces;
 
 import com.moscow.neighbours.backend.controllers.auth.dto.*;
-import com.moscow.neighbours.backend.db.model.DBUser;
+import com.moscow.neighbours.backend.db.model.user.DBUser;
 
 import java.util.List;
 

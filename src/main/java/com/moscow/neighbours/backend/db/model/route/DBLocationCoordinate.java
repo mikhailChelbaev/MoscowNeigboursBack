@@ -1,4 +1,4 @@
-package com.moscow.neighbours.backend.db.model.entities;
+package com.moscow.neighbours.backend.db.model.route;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,14 +15,12 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DBShortInfo {
+public class DBLocationCoordinate {
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(length = 1024)
-    private String title;
+    private Double lat;
 
-    @Column(length = 1024)
-    private String subtitle;
+    private Double lng;
 }

@@ -1,7 +1,7 @@
 package com.moscow.neighbours.backend.controllers.routes.dto;
 
 import com.moscow.neighbours.backend.controllers.routes.interfaces.IEntityPresentable;
-import com.moscow.neighbours.backend.db.model.entities.DBLocationCoordinate;
+import com.moscow.neighbours.backend.db.model.route.DBLocationCoordinate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

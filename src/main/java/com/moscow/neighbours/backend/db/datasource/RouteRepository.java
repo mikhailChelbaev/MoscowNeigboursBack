@@ -1,6 +1,6 @@
 package com.moscow.neighbours.backend.db.datasource;
 
-import com.moscow.neighbours.backend.db.model.DBRoute;
+import com.moscow.neighbours.backend.db.model.route.DBRoute;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

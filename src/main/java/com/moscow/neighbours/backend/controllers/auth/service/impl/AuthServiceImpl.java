@@ -8,7 +8,7 @@ import com.moscow.neighbours.backend.exceptions.descriptable_exception.Exception
 import com.moscow.neighbours.backend.jwt.auth.interfaces.IJWTService;
 import com.moscow.neighbours.backend.db.datasource.RoleRepository;
 import com.moscow.neighbours.backend.db.datasource.UserRepository;
-import com.moscow.neighbours.backend.db.model.DBUser;
+import com.moscow.neighbours.backend.db.model.user.DBUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

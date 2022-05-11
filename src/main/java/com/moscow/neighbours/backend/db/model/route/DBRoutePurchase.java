@@ -1,4 +1,4 @@
-package com.moscow.neighbours.backend.db.model.entities;
+package com.moscow.neighbours.backend.db.model.route;
 
 import com.moscow.neighbours.backend.models.RoutePurchaseStatus;
 import lombok.AllArgsConstructor;

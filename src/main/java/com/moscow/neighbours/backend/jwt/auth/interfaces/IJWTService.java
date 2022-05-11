@@ -1,7 +1,7 @@
 package com.moscow.neighbours.backend.jwt.auth.interfaces;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.moscow.neighbours.backend.db.model.DBUser;
+import com.moscow.neighbours.backend.db.model.user.DBUser;
 
 public interface IJWTService {
 

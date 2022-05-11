@@ -1,4 +1,4 @@
-package com.moscow.neighbours.backend.db.model;
+package com.moscow.neighbours.backend.db.model.achievements;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

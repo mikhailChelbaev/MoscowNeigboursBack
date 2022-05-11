@@ -1,7 +1,7 @@
-package com.moscow.neighbours.backend.db.model;
+package com.moscow.neighbours.backend.db.model.route;
 
 import com.moscow.neighbours.backend.db.ImagePresentable;
-import com.moscow.neighbours.backend.db.model.entities.DBRoutePurchase;
+import com.moscow.neighbours.backend.db.model.achievements.DBAchievement;
 import lombok.*;
 
 import javax.persistence.*;

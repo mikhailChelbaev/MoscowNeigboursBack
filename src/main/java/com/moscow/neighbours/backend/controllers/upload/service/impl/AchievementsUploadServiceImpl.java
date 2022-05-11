@@ -1,13 +1,11 @@
 package com.moscow.neighbours.backend.controllers.upload.service.impl;
 
-import com.moscow.neighbours.backend.controllers.routes.dto.ShortInfo;
 import com.moscow.neighbours.backend.controllers.upload.dto.AchievementUploadDto;
 import com.moscow.neighbours.backend.controllers.upload.service.interfaces.IAchievementsUploadService;
 import com.moscow.neighbours.backend.db.datasource.AchievementRepository;
-import com.moscow.neighbours.backend.db.model.DBAchievement;
+import com.moscow.neighbours.backend.db.model.achievements.DBAchievement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;

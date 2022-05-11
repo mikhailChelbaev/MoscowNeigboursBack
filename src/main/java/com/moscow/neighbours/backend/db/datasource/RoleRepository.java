@@ -1,6 +1,6 @@
 package com.moscow.neighbours.backend.db.datasource;
 
-import com.moscow.neighbours.backend.db.model.DBRole;
+import com.moscow.neighbours.backend.db.model.user.DBRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 

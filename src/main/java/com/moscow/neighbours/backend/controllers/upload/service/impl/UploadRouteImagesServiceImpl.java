@@ -7,9 +7,9 @@ import com.moscow.neighbours.backend.db.ImagePresentable;
 import com.moscow.neighbours.backend.db.datasource.AchievementRepository;
 import com.moscow.neighbours.backend.db.datasource.PersonRepository;
 import com.moscow.neighbours.backend.db.datasource.RouteRepository;
-import com.moscow.neighbours.backend.db.model.DBAchievement;
-import com.moscow.neighbours.backend.db.model.DBRoute;
-import com.moscow.neighbours.backend.db.model.entities.DBPerson;
+import com.moscow.neighbours.backend.db.model.achievements.DBAchievement;
+import com.moscow.neighbours.backend.db.model.route.DBRoute;
+import com.moscow.neighbours.backend.db.model.route.DBPerson;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

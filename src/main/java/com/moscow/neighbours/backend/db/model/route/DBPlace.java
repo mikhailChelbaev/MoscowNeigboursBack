@@ -1,4 +1,4 @@
-package com.moscow.neighbours.backend.db.model.entities;
+package com.moscow.neighbours.backend.db.model.route;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

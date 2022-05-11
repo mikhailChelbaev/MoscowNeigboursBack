@@ -1,14 +1,12 @@
 package com.moscow.neighbours.backend.controllers.routes.service.impl;
 
 import com.moscow.neighbours.backend.controllers.routes.dto.RouteDto;
-import com.moscow.neighbours.backend.controllers.routes.dto.RoutePurchaseDto;
 import com.moscow.neighbours.backend.controllers.routes.service.exceptions.FetchRoutesException;
 import com.moscow.neighbours.backend.controllers.routes.service.exceptions.RoutePurchaseException;
 import com.moscow.neighbours.backend.controllers.routes.service.interfaces.IRouteService;
 import com.moscow.neighbours.backend.db.datasource.RouteRepository;
 import com.moscow.neighbours.backend.db.datasource.UserRepository;
-import com.moscow.neighbours.backend.db.model.DBRoute;
-import com.moscow.neighbours.backend.exceptions.UserNotFoundException;
+import com.moscow.neighbours.backend.db.model.route.DBRoute;
 import com.moscow.neighbours.backend.models.RoutePurchaseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
