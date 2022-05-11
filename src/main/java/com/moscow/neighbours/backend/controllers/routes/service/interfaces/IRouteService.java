@@ -8,6 +8,4 @@ import java.util.UUID;
 public interface IRouteService {
     List<RouteDto> getAllRoutes(boolean withPaidRoutes);
     List<RouteDto> getRoutesForUser(String userId);
-
-    public void purchaseProduct(String userId, UUID routeId);
 }

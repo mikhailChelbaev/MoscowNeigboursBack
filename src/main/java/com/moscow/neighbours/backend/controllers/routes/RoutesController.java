@@ -1,17 +1,16 @@
 package com.moscow.neighbours.backend.controllers.routes;
 
 import com.moscow.neighbours.backend.controllers.routes.dto.RouteDto;
+import com.moscow.neighbours.backend.controllers.routes.service.interfaces.IPurchaseService;
 import com.moscow.neighbours.backend.controllers.routes.service.interfaces.IRouteService;
 import com.moscow.neighbours.backend.dto.MessageResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RestController
@@ -19,14 +18,15 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = {"*"}, maxAge = 3600)
 @Slf4j
 public class RoutesController {
-
     private final IRouteService routeService;
+    private final IPurchaseService purchaseService;
 
     @Autowired
     public RoutesController(
-            IRouteService routeService
-    ) {
+            IRouteService routeService,
+            IPurchaseService purchaseService) {
         this.routeService = routeService;
+        this.purchaseService = purchaseService;
     }
 
     @GetMapping()
@@ -65,7 +65,7 @@ public class RoutesController {
             return ResponseEntity.badRequest()
                     .body(MessageResponse.of("User not authorized"));
         }
-        routeService.purchaseProduct(user.getName(), id);
+        purchaseService.purchaseProduct(user.getName(), id);
         return ResponseEntity.ok(MessageResponse.of("Product purchased successfully"));
     }
 

@@ -4,6 +4,7 @@ import com.moscow.neighbours.backend.controllers.routes.dto.RouteAchievementDto;
 import com.moscow.neighbours.backend.controllers.routes.dto.RouteDto;
 import com.moscow.neighbours.backend.controllers.routes.service.exceptions.FetchRoutesException;
 import com.moscow.neighbours.backend.controllers.routes.service.exceptions.RoutePurchaseException;
+import com.moscow.neighbours.backend.controllers.routes.service.interfaces.IPurchaseService;
 import com.moscow.neighbours.backend.controllers.routes.service.interfaces.IRouteService;
 import com.moscow.neighbours.backend.db.datasource.RouteRepository;
 import com.moscow.neighbours.backend.db.datasource.UserRepository;
@@ -21,7 +22,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class RoutesServiceImpl implements IRouteService, Serializable {
+public class RoutesServiceImpl implements IRouteService {
     private final RouteRepository routeRepository;
     private final UserRepository userRepository;
 
@@ -56,18 +57,6 @@ public class RoutesServiceImpl implements IRouteService, Serializable {
                 .map(dbRoute -> createRouteDto(dbRoute, purchasedRouteIds, receivedAchievements))
                 .sorted(Comparator.comparing(x -> x.position))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void purchaseProduct(String userId, UUID routeId) {
-        var user = userRepository.findByUserId(userId).orElseThrow(
-                () -> new RoutePurchaseException("User not found")
-        );
-        var route = routeRepository.findById(routeId).orElseThrow(
-                () -> new RoutePurchaseException("Route not found")
-        );
-        user.getPurchasedRoutes().add(route);
-        userRepository.saveAndFlush(user);
     }
 
     // MARK - Helpers
