@@ -2,9 +2,12 @@ package com.moscow.neighbours.backend.controllers.achievements.service;
 
 import com.moscow.neighbours.backend.controllers.achievements.dto.AchievementDto;
 import com.moscow.neighbours.backend.controllers.achievements.dto.AchievementSectionDto;
+import com.moscow.neighbours.backend.controllers.achievements.dto.CompletedAchievementDto;
 import com.moscow.neighbours.backend.db.datasource.AchievementRepository;
 import com.moscow.neighbours.backend.db.datasource.UserRepository;
 import com.moscow.neighbours.backend.db.model.DBAchievement;
+import com.moscow.neighbours.backend.db.model.DBCompletedAchievement;
+import com.moscow.neighbours.backend.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,7 +17,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class AchievementsServiceImpl implements IAchievementsService {
+public class AchievementsServiceImpl implements IAchievementsStore, IAchievementsLoader {
     private final AchievementRepository achievementRepository;
     private final UserRepository userRepository;
 
@@ -25,6 +28,22 @@ public class AchievementsServiceImpl implements IAchievementsService {
         this.achievementRepository = achievementRepository;
         this.userRepository = userRepository;
     }
+
+    // MARK: - IAchievementsStore
+
+    @Override
+    public void saveAchievement(String email, CompletedAchievementDto dto) {
+        var user = userRepository.findByUserId(email);
+        user.ifPresentOrElse(unwrappedUser -> {
+            unwrappedUser.getCompletedAchievements().add(new DBCompletedAchievement(
+                    dto.achievementId,
+                    dto.date));
+        }, () -> {
+            throw new UserNotFoundException();
+        });
+    }
+
+    // MARK: - IAchievementsLoader
 
     @Override
     public List<AchievementSectionDto> getAchievements(String email) {
@@ -40,8 +59,6 @@ public class AchievementsServiceImpl implements IAchievementsService {
 
         return sections;
     }
-
-    // MARK: - Helpers
 
     private List<AchievementDto> getAllAchievements() {
         var allDbAchievements = achievementRepository.findAll();

@@ -4,6 +4,6 @@ import com.moscow.neighbours.backend.controllers.achievements.dto.AchievementSec
 
 import java.util.List;
 
-public interface IAchievementsService {
+public interface IAchievementsLoader {
     List<AchievementSectionDto> getAchievements(String email);
 }
