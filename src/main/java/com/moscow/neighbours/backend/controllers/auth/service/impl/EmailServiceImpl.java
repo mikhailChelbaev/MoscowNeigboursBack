@@ -78,7 +78,6 @@ public class EmailServiceImpl implements IEmailService {
         }
     }
 
-    // TODO: - russian version
 //    private static final String template = "<div><p>Hello, %s!</p>" +
 //            "<p>Confirm your account registration with this verification code: " +
 //            "<b>%s</b></p>" +
