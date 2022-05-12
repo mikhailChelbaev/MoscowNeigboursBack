@@ -51,7 +51,7 @@ public class ImageUploadServiceImpl implements IImageUploadService {
         try {
             Files.delete(Paths.get(UPLOAD_FOLDER + path));
         } catch (Exception ex) {
-            logger.info(String.format("Cant delete file: %s", UPLOAD_FOLDER + path));
+            logger.info(String.format("Can't delete file: %s", UPLOAD_FOLDER + path));
         }
     }
 
