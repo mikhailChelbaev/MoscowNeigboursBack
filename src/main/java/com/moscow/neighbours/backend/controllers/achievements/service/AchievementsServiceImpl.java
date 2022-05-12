@@ -53,7 +53,7 @@ public class AchievementsServiceImpl implements IAchievementsStore, IAchievement
     public List<AchievementSectionDto> getAchievements(String email) {
         List<AchievementSectionDto> sections = new ArrayList<>();
 
-        var allAchievements = getAllAchievements();
+        var allAchievements = getAllAchievements(email);
         var completedAchievements = getCompletedAchievements(email);
 
         if (!completedAchievements.isEmpty()) {
@@ -64,9 +64,25 @@ public class AchievementsServiceImpl implements IAchievementsStore, IAchievement
         return sections;
     }
 
-    private List<AchievementDto> getAllAchievements() {
+    private List<AchievementDto> getAllAchievements(String userEmail) {
+        var user = userRepository.findByUserId(userEmail).orElseThrow(() -> {
+                throw new UserNotFoundException();
+        });
+
         var allDbAchievements = achievementRepository.findAll();
-        var allAchievements = allDbAchievements.stream().map(achievement -> AchievementMapper.map(achievement, null)).collect(Collectors.toList());
+        var allAchievements = allDbAchievements
+                .stream()
+                .map(achievement -> {
+                    var completedAchievement = user
+                            .getCompletedAchievements()
+                            .stream()
+                            .filter(x -> x.getAchievementId().equals(achievement.getId()))
+                            .findFirst();
+                    var date = completedAchievement.map(DBCompletedAchievement::getDate)
+                            .orElse(null);
+                    return AchievementMapper.map(achievement, date);
+                })
+                .collect(Collectors.toList());
         return allAchievements;
     }
 
