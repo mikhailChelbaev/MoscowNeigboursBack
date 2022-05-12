@@ -46,7 +46,10 @@ public class AchievementsUploadServiceImpl implements IAchievementsUploadService
     private void assignAchievementsToRoutes(List<AchievementsPair> pairs) {
         pairs.forEach(pair -> {
             var route = routeRepository.findById(pair.dto.routeId);
-            route.ifPresent(unwrappedRoute -> unwrappedRoute.setAchievement(pair.getDbModel()));
+            route.ifPresent(unwrappedRoute -> {
+                unwrappedRoute.setAchievement(pair.getDbModel());
+                routeRepository.saveAndFlush(unwrappedRoute);
+            });
         });
     }
 
