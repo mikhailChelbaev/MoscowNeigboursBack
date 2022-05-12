@@ -1,5 +1,6 @@
 package com.moscow.neighbours.backend.controllers.achievements.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -12,6 +13,7 @@ public class AchievementDto {
     UUID id;
     String name;
     String description;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     Date date;
     String imageUrl;
 }
