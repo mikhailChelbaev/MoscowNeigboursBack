@@ -67,7 +67,7 @@ public class DBUser {
     @Builder.Default
     private Collection<DBRole> roles = new ArrayList<>();
 
-    @OneToMany
     @Builder.Default
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<DBCompletedAchievement> completedAchievements = new HashSet<>();
 }

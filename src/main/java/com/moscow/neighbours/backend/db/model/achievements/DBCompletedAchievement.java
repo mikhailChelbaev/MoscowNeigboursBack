@@ -1,14 +1,12 @@
 package com.moscow.neighbours.backend.db.model.achievements;
 
+import com.moscow.neighbours.backend.db.model.user.DBUser;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
@@ -18,8 +16,14 @@ import java.util.UUID;
 @NoArgsConstructor
 public class DBCompletedAchievement {
     @Id
+    private UUID id;
+
+    @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    private DBUser user;
+
     private UUID achievementId;
 
+    @Setter
     @Temporal(TemporalType.DATE)
     private Date date;
 }

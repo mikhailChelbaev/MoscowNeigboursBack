@@ -11,10 +11,7 @@ import com.moscow.neighbours.backend.db.model.achievements.DBCompletedAchievemen
 import com.moscow.neighbours.backend.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,11 +37,24 @@ public class AchievementsServiceImpl implements IAchievementsStore, IAchievement
             throw new UserNotFoundException();
         });
 
-        var completedAchievement = new DBCompletedAchievement(dto.achievementId, dto.date);
-        completedAchievementRepository.saveAndFlush(completedAchievement);
+        user.getCompletedAchievements()
+                .stream()
+                .filter(achievement -> achievement.getAchievementId().equals(dto.achievementId))
+                .findFirst()
+                .ifPresentOrElse(completedAchievement -> {
+                    completedAchievement.setDate(dto.date);
+                    completedAchievementRepository.saveAndFlush(completedAchievement);
+                }, () -> {
+                    var completedAchievement = new DBCompletedAchievement(
+                            UUID.randomUUID(),
+                            user,
+                            dto.achievementId,
+                            dto.date);
+                    completedAchievementRepository.saveAndFlush(completedAchievement);
 
-        user.getCompletedAchievements().add(completedAchievement);
-        userRepository.saveAndFlush(user);
+                    user.getCompletedAchievements().add(completedAchievement);
+                    userRepository.saveAndFlush(user);
+                });
     }
 
     // MARK: - IAchievementsLoader
@@ -89,10 +99,15 @@ public class AchievementsServiceImpl implements IAchievementsStore, IAchievement
     private List<AchievementDto> getCompletedAchievements(String userEmail) {
         var user = userRepository.findByUserId(userEmail);
 
-        return user.map(unwrappedUser -> unwrappedUser.getCompletedAchievements().stream().map(data -> {
+        return user.map(unwrappedUser -> unwrappedUser.getCompletedAchievements()
+                .stream()
+                .map(data -> {
             var achievement = achievementRepository.findById(data.getAchievementId());
-            return achievement.map(dbAchievement -> AchievementMapper.map(dbAchievement, data.getDate())).orElse(null);
-        }).filter(Objects::nonNull).collect(Collectors.toList())).orElse(new ArrayList<>());
+            return achievement.map(dbAchievement -> AchievementMapper.map(dbAchievement, data.getDate()))
+                    .orElse(null);
+        }).filter(Objects::nonNull)
+                .collect(Collectors.toList()))
+                .orElse(new ArrayList<>());
     }
 }
 
@@ -109,6 +124,6 @@ class AchievementMapper {
     }
 
     static AchievementDto map(DBAchievement dbModel, Date date) {
-        return new AchievementDto(dbModel.getId(), dbModel.getName(), getDescription(dbModel, date), date, getImage(dbModel, date));
+        return new AchievementDto(dbModel.getId(), dbModel.getName(), getDescription(dbModel, date), getImage(dbModel, date), date);
     }
 }

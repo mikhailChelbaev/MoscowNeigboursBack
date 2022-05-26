@@ -7,7 +7,5 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<DBUser, Long> {
-//    Optional<DBUser> findByEmail(@Param("email") String email);
-
     Optional<DBUser> findByUserId(@Param("userId") String id);
 }
