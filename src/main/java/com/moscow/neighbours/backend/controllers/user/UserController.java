@@ -31,7 +31,7 @@ public class UserController {
         if (principal != null) {
             email = principal.getName();
         }
-        log.info("POST: /api/v1/me : {}", email);
+        log.info("GET: /api/v1/me : {}", email);
         return ResponseEntity.ok(userService.getUserInfo(email));
     }
 
