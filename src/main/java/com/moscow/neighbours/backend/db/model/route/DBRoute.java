@@ -17,7 +17,6 @@ public class DBRoute {
 
     @Id
     @Column(name = "id", columnDefinition = "uuid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "name", nullable = false, unique = true)

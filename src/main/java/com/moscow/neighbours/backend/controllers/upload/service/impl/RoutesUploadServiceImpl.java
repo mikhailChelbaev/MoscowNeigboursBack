@@ -1,10 +1,8 @@
 package com.moscow.neighbours.backend.controllers.upload.service.impl;
 
-import com.moscow.neighbours.backend.controllers.images.service.interfaces.IImageUploadService;
 import com.moscow.neighbours.backend.controllers.routes.dto.RouteDto;
 import com.moscow.neighbours.backend.controllers.upload.exceptions.RoutesUploadControllerException;
 import com.moscow.neighbours.backend.controllers.upload.service.interfaces.IRoutesUploadService;
-import com.moscow.neighbours.backend.db.datasource.PersonRepository;
 import com.moscow.neighbours.backend.db.datasource.RouteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
